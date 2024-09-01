@@ -43,11 +43,13 @@
             <x-label for="category" class="form-label">Category</x-label>
             <x-input type="text" name="category" class="form-control" wire:model.lazy="category" id="category"
                 required />
+            @error('category') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-3">
             <x-label for="credits" class="form-label">Credits</x-label>
             <x-input type="text" name="credits" class="form-control" wire:model.lazy="credits" id="credits" required />
+            @error('credits') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-3">

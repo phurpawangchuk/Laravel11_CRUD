@@ -67,9 +67,28 @@ class ProductManager extends Component
         $product->user_id = auth()->id();
 
         if ($this->image) {
-            $imagePath = $this->image->store('images', 'public');
-            $product->image = $imagePath;
+            //$imagePath = $this->image->store('images', 'public');
+            $file = $this->image;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/images', $filename); 
+             // Store the file on S3 with the custom filename
+            $path = $file->storeAs('uploads', $filename, 's3');
+            $url = Storage::disk('s3')->url($path);
+
+            $product->image = $filename;
         }
+
+
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/images', $filename); 
+        // Store the file on S3 with the custom filename
+        // $path = $file->storeAs('uploads', $filename, 's3');
+        // $url = Storage::disk('s3')->url($path);
+
+        $post->image = $filename;
+    }
 
         $product->save();
 

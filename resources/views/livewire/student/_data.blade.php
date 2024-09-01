@@ -26,16 +26,18 @@
                           <td>{{ $student->course->name}}</td>
                           <td>{{ $student->grade}}</td>
                           <x-authenticated-content>
+                              @can('update', $student)
                               <td>
                                   <button wire:click="edit({{ $student->id }})" class="btn btn-info">Edit</button>
                                   <button type="button" wire:click="delete({{ $student->id }})"
                                       class="btn btn-danger">Delete</button>
                               </td>
+                              @endcan
                           </x-authenticated-content>
                       </tr>
                       @empty
                       <tr>
-                          <td colspan="5">No Products Found</td>
+                          <td colspan="5">No Students Found</td>
                       </tr>
                       @endforelse
                   </tbody>

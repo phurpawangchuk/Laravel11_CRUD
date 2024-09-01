@@ -23,8 +23,7 @@ class StudentManager extends Component
         'email' => 'required|string|max:50',
         'course_id' => 'required',
         'gender' => 'required',
-        'credits' => 'required',
-        'grade' => 'nullable|string|max:2',
+        'credits' => 'required|integer|max:10',
         'category' => 'required|string|max:50',
         'repeat' => 'required',
     ];
@@ -42,9 +41,16 @@ class StudentManager extends Component
 
     public function render()
     {
-        return view('livewire.student._index', [
-            'students' => Student::with('course')->paginate(10),
-        ]);
+
+        if(auth()->user()){
+            return view('livewire.student._index', [
+                 'students' => Student::where('user_id', auth()->user()->id)->paginate(10),
+            ]);
+        }else{
+            return view('livewire.student._index', [
+                 'students' => Student::paginate(10),
+            ]);
+        }
     }
 
     public function store()
@@ -83,8 +89,8 @@ class StudentManager extends Component
         $this->repeat = $student->repeat;
         $this->credits = $student->credits;
         $this->grade = $student->grade;
-        //         $this->updatedSelectedState($student->state);
-        //         $this->selectedCity = $student->city;
+        //$this->updatedSelectedState($student->state);
+        //$this->selectedCity = $student->city;
     }
 
     public function update()
@@ -103,9 +109,6 @@ class StudentManager extends Component
 
         session()->flash('message', 'Student updated successfully.');
         $this->resetFields();
-        //  return redirect()->route('student._index')
-        //                  ->with('success', 'Student updated successfully.');
-       
     }
 
     public function cancel()
@@ -115,8 +118,8 @@ class StudentManager extends Component
 
     public function delete($id)
     {
-        $this->studentIdToDelete = $id; // Store the ID of the student to delete
-        $this->confirmingDelete = true; // Show the confirmation modal
+        $this->studentIdToDelete = $id; 
+        $this->confirmingDelete = true; 
     }
 
     private function resetFields()
