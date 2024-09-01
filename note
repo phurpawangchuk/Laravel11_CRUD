@@ -1,0 +1,14 @@
+composer create-project laravel/laravel product-crud
+cd product-crud
+composer require laravel/jetstream
+php artisan jetstream:install livewire
+php artisan migrate
+npm install && npm run dev
+php artisan serve
+php artisan make:model Product -m
+
+php artisan make:controller ProductController
+
+php artisan migrate
+
+npm install bootstrap@5
