@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_KEY_PATH: /tmp/ec2_key.pem
+      EC2_KEY: ${{ secrets.EC2_KEY }}
+      APP_DIRECTORY: ${{ secrets.APP_DIRECTORY }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js 20.17
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.17'
+    
+    - name: Create SSH key file
+      run: |
+        echo "$EC2_KEY" > $EC2_KEY_PATH
+        chmod 400 $EC2_KEY_PATH
+
+    # - name: Install dependencies
+    #   run: |
+    #     composer update
+    #     composer install --no-dev --optimize-autoloader
+
+    - name: Copy files to EC2
+      run: |
+        rsync -avz --no-perms --no-times -e "ssh -i $EC2_KEY_PATH -o StrictHostKeyChecking=no" \
+              --rsync-path="sudo rsync" --exclude 'public/build' --exclude 'vendor' --exclude 'tests/' --exclude 'node_modules/' --exclude=storage/ --exclude '.git/' \
+              . $EC2_USER@$EC2_HOST:$APP_DIRECTORY
+
+    - name: Set correct file ownership on EC2
+      run: |
+        ssh -i $EC2_KEY_PATH -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << EOF
+          sudo chown -R www-data:www-data $APP_DIRECTORY
+        EOF
+
+    - name: SSH into EC2 and build the project
+      run: |
+        ssh -i $EC2_KEY_PATH -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << EOF
+          cd $APP_DIRECTORY
+          sudo npm run build
+        EOF
+
+    - name: Clean up
+      run: rm -f $EC2_KEY_PATH
