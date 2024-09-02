@@ -10,5 +10,4 @@ php artisan make:model Product -m
 php artisan make:controller ProductController
 
 php artisan migrate
-
 npm install bootstrap@5
