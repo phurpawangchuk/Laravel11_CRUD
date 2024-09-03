@@ -1,5 +1,7 @@
 <div class="container mt-1">
     @if (count($students) > 0)
+    <input type="text" wire:model.live="search" placeholder="Search student..." class="border p-2 mb-2 rounded w-1/4" />
+
     <table class="table table-bordered">
         <thead>
             <tr>

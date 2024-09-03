@@ -33,22 +33,28 @@ class StudentManager extends Component
         ['id' => 'N', 'name' => 'No'],
     ];
 
+    public $search = '';
 
     public function mount()
     {
-        $this->courses = Course::all();
+       $this->courses = Course::all();
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function render()
     {
-
         if(auth()->user()){
             return view('livewire.student._index', [
                  'students' => Student::where('user_id', auth()->user()->id)->paginate(10),
             ]);
         }else{
+            $students = Student::paginate(10);
             return view('livewire.student._index', [
-                 'students' => Student::paginate(10),
+                 'students' => $students,
             ]);
         }
     }
