@@ -1,6 +1,10 @@
 <x-guest-layout>
 
     <div class="container my-5">
+        <div>
+            This is implemented using AWS services. The following services are used:
+            RDS, CE2 and S3
+        </div>
         <!-- Students Section -->
         <div class="mb-4">
             <div class="card">
