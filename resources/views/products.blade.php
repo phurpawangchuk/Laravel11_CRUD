@@ -6,6 +6,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Description</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -14,6 +15,11 @@
                 <td>{{ $product->name }}</td>
                 <td>${{ number_format($product->price, 2) }}</td>
                 <td>{{ $product->description }}</td>
+                <td>
+                    @if ($product->image)
+                    <img src="https://posts3image.s3.amazonaws.com/uploads/{{$product->image}}" alt="Post Image"
+                        width="100">
+                    @endif
             </tr>
             @endforeach
         </tbody>

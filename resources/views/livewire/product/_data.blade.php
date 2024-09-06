@@ -24,7 +24,9 @@
                           <td>{{ $product->description }}</td>
                           <td>
                               @if ($product->image)
-                              <img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail" width="100" />
+                              <!-- <img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail" width="100" /> -->
+                              <img src="https://posts3image.s3.amazonaws.com/uploads/{{$product->image}}"
+                                  alt="Post Image" width="100">
                               @endif
                           </td>
                           <x-authenticated-content>

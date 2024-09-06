@@ -10,7 +10,6 @@ use App\Http\Controllers\ContactController;
 
 use App\Mail\ContactFormMail;
 
-
 Route::get('/send-email', function () {
     Mail::to('phurpawangchuk20@gmail.com')->send(new ContactFormMail());
 
