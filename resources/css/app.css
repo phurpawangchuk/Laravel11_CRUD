@@ -7,3 +7,24 @@
 [x-cloak] {
     display: none;
 }
+
+#card-element {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+#submit {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#submit:hover {
+    background-color: #0056b3;
+}

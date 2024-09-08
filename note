@@ -16,3 +16,7 @@ npm install bootstrap@5
 composer require guzzlehttp/guzzle  // for api request
 php artisan make:Provider ApiServiceProvider   
 php artisan make:controller ApiController
+
+composer require stripe/stripe-php
+// added to service
+php artisan make:controller PaymentController
