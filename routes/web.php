@@ -11,10 +11,6 @@ use App\Http\Controllers\PaymentController;
 
 use App\Mail\ContactFormMail;
 
-// Route::get('/livewire/livewire.js', function() {
-//     return response()->file(public_path('livewire/livewire.js'));
-// });
-
 Route::get('/send-email', function () {
     Mail::to('phurpawangchuk20@gmail.com')->send(new ContactFormMail());
 
@@ -26,7 +22,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
         return view('dashboard');
     })->name('dashboard');
 });
-
 
 // Route::middleware(['auth'])->group(function () {
 //     Route::get('/products', ProductManager::class)->name('products');
