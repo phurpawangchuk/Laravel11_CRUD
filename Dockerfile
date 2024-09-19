@@ -25,7 +25,9 @@ COPY custom-site.conf /etc/apache2/sites-available/000-default.conf
 
 # Set permissions for the application directory
 RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html
+    chmod -R 755 /var/www/html && \
+    chmod -R 775 storage/ && \
+    chmod -R 775 bootstrap/cache
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -38,12 +40,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 # Install Node.js dependencies
 RUN npm install
-
 # Build assets
-RUN npm run build
+#RUN npm run build
+
+# Create a script to run migrations and start Apache
+COPY docker-start.sh /usr/local/bin/docker-start.sh
+RUN chmod +x /usr/local/bin/docker-start.sh
 
 # Expose port 80
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Start the custom script
+CMD ["docker-start.sh"]

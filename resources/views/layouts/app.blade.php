@@ -11,6 +11,11 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- chart  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -24,8 +29,7 @@
 
     <div class="min-h-screen bg-gray-100">
         <!-- Show navigation menu for authenticated users -->
-        @livewire('navigation-menu')
-
+        <x-app-navigation-menu />
         <!-- Page Heading -->
         <!-- @if (isset($header))
         <header class="bg-white shadow">

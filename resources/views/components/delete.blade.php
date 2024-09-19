@@ -1,10 +1,11 @@
+   @props(['title' => 'Default Title'])
    <x-dialog-modal id="deleteConfirmationModal" wire:model.defer="confirmingDelete">
        <x-slot name="title">
            Confirm Deletion
        </x-slot>
 
        <x-slot name="content">
-           <p>Are you sure you want to delete this product?</p>
+           <p>Are you sure you want to delete this {{ $title}}?</p>
        </x-slot>
 
        <x-slot name="footer">
