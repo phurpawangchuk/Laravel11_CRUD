@@ -8,6 +8,7 @@
 
     @include('livewire.student._data')
     @include('livewire.student._form')
-    @include('livewire.student._delete')
+    
+    <x-delete title="Student"></x-delete>
 
 </div>

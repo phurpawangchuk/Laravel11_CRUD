@@ -13,6 +13,6 @@
     @include('livewire.product._form')
 
     <!-- Delete Confirmation Modal -->
-    @include('livewire.product._delete')
+    <x-delete title="Product"></x-delete>
 
 </div>

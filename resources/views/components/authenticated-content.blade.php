@@ -6,5 +6,9 @@
 
     @if ($isAuthenticated && $user)
     {{ $slot }}
+    @else
+    <script>
+    window.location.href = "{{ route('login') }}";
+    </script>
     @endif
 </div>

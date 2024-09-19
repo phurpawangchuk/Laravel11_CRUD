@@ -70,10 +70,10 @@ class ProductManager extends Component
             //$imagePath = $this->image->store('images', 'public');
             $file = $this->image;
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/images', $filename); 
+            $file->storeAs('public/products', $filename); 
              // Store the file on S3 with the custom filename
-            $path = $file->storeAs('uploads', $filename, 's3');
-            $url = Storage::disk('s3')->url($path);
+            // $path = $file->storeAs('uploads', $filename, 's3');
+            // $url = Storage::disk('s3')->url($path);
 
             $product->image = $filename;
         }
@@ -120,7 +120,7 @@ class ProductManager extends Component
             }
 
             // Store the new image and update the path
-            $imagePath = $this->image->store('images', 'public');
+            $imagePath = $this->image->store('products', 'public');
             $product->image = $imagePath;
         }
 
