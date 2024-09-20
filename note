@@ -20,3 +20,4 @@ php artisan make:controller ApiController
 composer require stripe/stripe-php
 // added to service
 php artisan make:controller PaymentController
+
